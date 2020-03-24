@@ -31,10 +31,9 @@
         <br>
         {{header_pred}}
         <br>
-        {% for pred in prediction %}
-        {% print(pred[0]) %}
-        {% print(pred[1]) %}
-        {% endfor %}
+        {% for pred in prediction -%}
+          <li>{{pred}}</li>
+        {%- endfor %}
       </div>
     </form>
   </body>
