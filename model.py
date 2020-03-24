@@ -1,7 +1,10 @@
 from transformers import BertModel, BertTokenizer, BertForSequenceClassification
+from pathlib import Path
 import torch.nn as nn
 import pandas as pd
+import requests
 import torch
+import os
 
 MODELS = [(BertModel, BertTokenizer, 'bert-base-uncased')]
 
@@ -48,8 +51,19 @@ class linear_model(nn.Module):
 
         return logits
 
+s3_model_url = 'https://toxic-model.s3.eu-west-2.amazonaws.com/toxic_model.pt'
+path = "./model/"
+
+path_to_model = os.path.join(path, 'toxic_model.pt')
+if not os.path.exists(path_to_model):
+    print("Model weights not found, downloading from S3...")
+    os.makedirs(os.path.join(path), exist_ok=True)
+    filename = Path(path_to_model)
+    r = requests.get(s3_model_url)
+    filename.write_bytes(r.content)
+
 model = linear_model(bert_model, len(labels_list))
-model.load_state_dict(torch.load("./model/toxic_model.pt", map_location=torch.device('cpu')))
+model.load_state_dict(torch.load(path_to_model, map_location=torch.device('cpu')))
 
 def predict(model, tokenizer, text):
 
@@ -62,9 +76,7 @@ def predict(model, tokenizer, text):
     pred = torch.sigmoid(logits)
     pred = pred.detach().cpu().numpy()
     
-    rounded_pred = [round(x * 100, 1) for x in pred[0]]
-
-    result_df = pd.DataFrame([rounded_pred], columns=["Toxic", "Severe Toxic", "Obscene", "Threat", "Insult", "Identity Hate"])
+    result_df = pd.DataFrame(pred, columns=["Toxic", "Severe Toxic", "Obscene", "Threat", "Insult", "Identity Hate"])
     results = result_df.to_dict("record")
     results_list = [sorted(x.items(), key=lambda kv: kv[1], reverse=True) for x in results][0]
 
