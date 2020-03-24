@@ -49,7 +49,7 @@ You can test the model using the `predict` function in `model.py` or by using th
 
 # How to train (Distil)BERT
 
-Check out my notebooks on how to fine-tune BERT [here]()
+Check out my notebooks on how to fine-tune BERT [here](https://github.com/oliverproud/bert-sequence-classification/tree/master/train-notebooks)
 
 # References 
 
