@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>BERT Sequence Classification</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/animate.min.css">
+    <link rel="shortcut icon" type="image/png" href="/static/images/logo.png">
+  </head>
+  <body>
+    <form action="/">
+      <div class="main">
+        <br>
+
+        <h1>BERT Toxic Comment Classification</h1>
+
+        <p>Enter text:</p>
+        <input id="text" align="center" type="text" name="text_in" placeholder="enter text" required>
+
+        <br>
+
+        <button id="submit-btn" type="submit" value="Submit">Submit</button>
+
+        <br>
+        <br>
+        {{header_text}}
+        <br>
+        {{text_in}}
+        <br>
+        <br>
+        {{header_pred}}
+        <br>
+        {% for pred in prediction %}
+        {% print(pred[0]) %}
+        {% print(pred[1]) %}
+        {% endfor %}
+      </div>
+    </form>
+  </body>
+</html>
