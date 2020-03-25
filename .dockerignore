@@ -5,5 +5,5 @@ README.md
 *.pyd
 __pycache__
 venv
-model/model.txt
+model
 train_notebooks
