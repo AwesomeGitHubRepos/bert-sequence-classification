@@ -45,7 +45,7 @@ model.load_state_dict(torch.load(path_to_model, map_location=torch.device('cpu')
 
 You can test the model using the `predict` function in `model.py` or by using the provided Flask user interface
 
-![demo](/Users/oliverproud/bert-sequence-classification/static/images/demo.png)
+![demo](static/images/demo.png)
 
 # How to train (Distil)BERT
 
