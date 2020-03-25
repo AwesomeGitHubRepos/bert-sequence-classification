@@ -38,6 +38,8 @@ Install the requirements with:
 pip3 install -r requirements.txt
 ```
 
+If you have any questions, feedback or problems of any kind, get in touch by messaging me on [Twitter - @oliverwproud](https://twitter.com/oliverwproud) or by submitting an issue.
+
 ### Toxic Comment Fine-tuned model 
 
 Note: I chose to fine-tune two models - BERT base and DistilBERT base. This is due to BERT base being too large to deploy, however you have to choice to use whichever model you would like in `model.py`
