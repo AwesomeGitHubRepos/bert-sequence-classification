@@ -75,7 +75,7 @@ def predict(model, tokenizer, text):
     logits = model(tok_tensor)
     pred = torch.sigmoid(logits)
     pred = pred.detach().cpu().numpy()
-    
+
     result_df = pd.DataFrame(pred, columns=["Toxic", "Severe Toxic", "Obscene", "Threat", "Insult", "Identity Hate"])
     results = result_df.to_dict("record")
     results_list = [sorted(x.items(), key=lambda kv: kv[1], reverse=True) for x in results][0]
