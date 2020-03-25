@@ -15,8 +15,6 @@ for model_class, tokenizer_class, pretrained_weights in DISTILBERT_MODEL:
     tokenizer = tokenizer_class.from_pretrained(pretrained_weights)
     bert_model = model_class.from_pretrained(pretrained_weights)
 
-    print(pretrained_weights)
-
 labels_list = ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
 
 class linear_model(nn.Module):
