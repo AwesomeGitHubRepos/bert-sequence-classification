@@ -3,3 +3,4 @@ __pycache__/
 venv/
 model/toxic_model.pt
 model/pytorch_model.bin
+model/distil_toxic_model.pt
