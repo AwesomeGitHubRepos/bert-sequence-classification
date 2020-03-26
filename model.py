@@ -83,7 +83,8 @@ model.load_state_dict(torch.load(path_to_model, map_location=torch.device('cpu')
 def predict(model, tokenizer, text):
 
     model.eval()
-
+    
+    text = text.lower()
     tokenized = tokenizer.encode(text, add_special_tokens=True)
     tok_tensor = torch.tensor(tokenized)
     tok_tensor = tok_tensor.unsqueeze(0)
