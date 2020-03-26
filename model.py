@@ -6,6 +6,7 @@ import pandas as pd
 import requests
 import torch
 import os
+import re
 
 # BERT_MODEL = [(BertModel, BertTokenizer, 'bert-base-uncased')]
 DISTILBERT_MODEL = [(DistilBertModel, DistilBertTokenizer, 'distilbert-base-cased')]
@@ -83,8 +84,10 @@ model.load_state_dict(torch.load(path_to_model, map_location=torch.device('cpu')
 def predict(model, tokenizer, text):
 
     model.eval()
-    
+
     text = text.lower()
+    # Remove punctuation
+    text = re.sub(r'[^\w\s]','', text)
     tokenized = tokenizer.encode(text, add_special_tokens=True)
     tok_tensor = torch.tensor(tokenized)
     tok_tensor = tok_tensor.unsqueeze(0)
