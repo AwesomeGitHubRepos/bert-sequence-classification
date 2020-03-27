@@ -9,14 +9,17 @@ import os
 import re
 
 # BERT_MODEL = [(BertModel, BertTokenizer, 'bert-base-uncased')]
-DISTILBERT_MODEL = [(DistilBertModel, DistilBertTokenizer, 'distilbert-base-cased')]
+DISTILBERT_MODEL = [
+    (DistilBertModel, DistilBertTokenizer, 'distilbert-base-cased')]
 
 for model_class, tokenizer_class, pretrained_weights in DISTILBERT_MODEL:
 
     tokenizer = tokenizer_class.from_pretrained(pretrained_weights)
     bert_model = model_class.from_pretrained(pretrained_weights)
 
-labels_list = ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
+labels_list = ["toxic", "severe_toxic", "obscene",
+               "threat", "insult", "identity_hate"]
+
 
 class linear_model(nn.Module):
     def __init__(self, bert_model, num_labels):
@@ -44,7 +47,7 @@ class linear_model(nn.Module):
             hidden = self.bert(x)[0]
 
         # (batch_size, hidden_size)
-        hidden = hidden[:,0]
+        hidden = hidden[:, 0]
 
         # (batch_size, hidden_size)
         pooled_output = self.pre_classifier(hidden)
@@ -56,6 +59,7 @@ class linear_model(nn.Module):
         logits = self.classifier(pooled_output)
 
         return logits
+
 
 def download_model(s3_url, model_name):
     path = "./model/"
@@ -69,6 +73,7 @@ def download_model(s3_url, model_name):
 
     return path_to_model
 
+
 if pretrained_weights == 'distilbert-base-cased':
     s3_url = 'https://toxic-model.s3.eu-west-2.amazonaws.com/distil_toxic_model.pt'
     model_name = 'distil_toxic_model.pt'
@@ -79,7 +84,9 @@ else:
 path_to_model = download_model(s3_url, model_name)
 
 model = linear_model(bert_model, len(labels_list))
-model.load_state_dict(torch.load(path_to_model, map_location=torch.device('cpu')))
+model.load_state_dict(torch.load(
+    path_to_model, map_location=torch.device('cpu')))
+
 
 def predict(model, tokenizer, text):
 
@@ -87,7 +94,7 @@ def predict(model, tokenizer, text):
 
     text = text.lower()
     # Remove punctuation
-    text = re.sub(r'[^\w\s]','', text)
+    text = re.sub(r'[^\w\s]', '', text)
     tokenized = tokenizer.encode(text, add_special_tokens=True)
     tok_tensor = torch.tensor(tokenized)
     tok_tensor = tok_tensor.unsqueeze(0)
@@ -95,8 +102,10 @@ def predict(model, tokenizer, text):
     pred = torch.sigmoid(logits)
     pred = pred.detach().cpu().numpy()
 
-    result_df = pd.DataFrame(pred, columns=["Toxic", "Severe Toxic", "Obscene", "Threat", "Insult", "Identity Hate"])
+    result_df = pd.DataFrame(pred, columns=[
+                             "Toxic", "Severe Toxic", "Obscene", "Threat", "Insult", "Identity Hate"])
     results = result_df.to_dict("record")
-    results_list = [sorted(x.items(), key=lambda kv: kv[1], reverse=True) for x in results][0]
+    results_list = [sorted(x.items(), key=lambda kv: kv[1],
+                           reverse=True) for x in results][0]
 
     return text, results_list

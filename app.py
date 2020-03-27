@@ -6,6 +6,7 @@ import os
 # Initialize the app
 app = flask.Flask(__name__)
 
+
 @app.route('/')
 def index():
 
@@ -21,7 +22,8 @@ def index():
     if(request.args):
 
         # Passes contents of query string to the prediction function contained in model.py
-        x_input, prediction = predict(model, tokenizer, request.args['text_in'])
+        x_input, prediction = predict(
+            model, tokenizer, request.args['text_in'])
         print(prediction)
 
         # Indexes the returned dictionary for the sentiment probability
@@ -31,5 +33,6 @@ def index():
     else:
         return flask.render_template('index.html')
 
+
 if __name__ == "__main__":
-    app.run(debug=True,host='0.0.0.0',port=int(os.environ.get('PORT', 8080)))
+    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
