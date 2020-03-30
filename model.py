@@ -9,8 +9,7 @@ import os
 import re
 
 # BERT_MODEL = [(BertModel, BertTokenizer, 'bert-base-uncased')]
-DISTILBERT_MODEL = [
-    (DistilBertModel, DistilBertTokenizer, 'distilbert-base-cased')]
+DISTILBERT_MODEL = [(DistilBertModel, DistilBertTokenizer, 'distilbert-base-cased')]
 
 for model_class, tokenizer_class, pretrained_weights in DISTILBERT_MODEL:
 
