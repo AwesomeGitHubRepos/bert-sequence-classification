@@ -1,5 +1,6 @@
 from transformers import DistilBertModel, DistilBertTokenizer, DistilBertForSequenceClassification
 # from transformers import BertModel, BertTokenizer, BertForSequenceClassification
+from transformers.file_utils import cached_path
 from pathlib import Path
 import torch.nn as nn
 import pandas as pd
@@ -7,6 +8,13 @@ import requests
 import torch
 import os
 import re
+
+urls = [
+    "https://s3.amazonaws.com/models.huggingface.co/bert/distilbert-base-cased-pytorch_model.bin"
+]
+
+for url in urls:
+    cached_path(url)
 
 # BERT_MODEL = [(BertModel, BertTokenizer, 'bert-base-uncased')]
 DISTILBERT_MODEL = [(DistilBertModel, DistilBertTokenizer, 'distilbert-base-cased')]
