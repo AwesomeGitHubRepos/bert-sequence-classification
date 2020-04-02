@@ -10,7 +10,29 @@ Victor Sahn of Hugging Face [wrote a great Medium post](https://medium.com/huggi
 
 # Installation
 
-If you are testing this on your own machine I would recommend you do the setup in a virtual environment, as not to affect the rest of your files. 
+If you are testing this on your own machine I would recommend you run it in a virtual environment or use Docker, as not to affect the rest of your files. 
+
+### Docker
+
+To use my docker image:
+
+```bash
+docker pull oliverproud/bert-classification-flask
+```
+
+Build the container: 
+
+```bash
+docker build -t bert-classification-flask .
+```
+
+Run the container:
+
+```bash
+docker run -dp 8080:8080 bert-classification-flask
+```
+
+### Python venv
 
 In Python3 you can set up a virtual environment with 
 
@@ -37,6 +59,8 @@ Install the requirements with:
 ```bash
 pip3 install -r requirements.txt
 ```
+
+### Contact
 
 If you have any questions, feedback or problems of any kind, get in touch by messaging me on [Twitter - @oliverwproud](https://twitter.com/oliverwproud) or by submitting an issue.
 
