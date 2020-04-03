@@ -10,17 +10,25 @@ Victor Sahn of Hugging Face [wrote a great Medium post](https://medium.com/huggi
 
 # Installation
 
-If you are testing this on your own machine I would recommend you run it in a virtual environment or use Docker, as not to affect the rest of your files. 
+If you are testing this on your own machine I would recommend you run it in a virtual environment or use Docker, as not to affect the rest of your files.
 
 ### Docker
 
-To use my docker image:
+To use my docker repository:
 
 ```bash
 docker pull oliverproud/bert-classification-flask
 ```
 
-Build the container: 
+Run the container:
+
+```bash
+docker run -dp 8080:8080 oliverproud/bert-classification-flask
+```
+
+or Git Pull this repository and
+
+Build the container:
 
 ```bash
 docker build -t bert-classification-flask .
@@ -34,17 +42,17 @@ docker run -dp 8080:8080 bert-classification-flask
 
 ### Python venv
 
-In Python3 you can set up a virtual environment with 
+In Python3 you can set up a virtual environment with
 
 ```bash
 python3 -m venv /path/to/new/virtual/environment
 ```
 
-Or by installing virtualenv with pip by doing 
+Or by installing virtualenv with pip by doing
 ```bash
 pip3 install virtualenv
 ```
-Then creating the environment with 
+Then creating the environment with
 ```bash
 virtualenv venv
 ```
@@ -64,11 +72,11 @@ pip3 install -r requirements.txt
 
 If you have any questions, feedback or problems of any kind, get in touch by messaging me on [Twitter - @oliverwproud](https://twitter.com/oliverwproud) or by submitting an issue.
 
-### Toxic Comment Fine-tuned model 
+### Toxic Comment Fine-tuned model
 
 Note: I chose to fine-tune two models - BERT base and DistilBERT base. This is due to BERT base being too large to deploy, however you have to choice to use whichever model you would like in `model.py`
 
-The toxic comment fine-tuned model is available in my S3 Bucket: 
+The toxic comment fine-tuned model is available in my S3 Bucket:
 
 - [DistilBERT model](https://toxic-model.s3.eu-west-2.amazonaws.com/distil_toxic_model.pt)
 
@@ -93,7 +101,7 @@ You can test the model using the `predict` function in `model.py` or by using th
 
 Check out my notebooks on how to fine-tune BERT [here](https://github.com/oliverproud/bert-sequence-classification/tree/master/train_notebooks)
 
-# References 
+# References
 
 - <https://github.com/huggingface/transformers>
 - <https://medium.com/huggingface/distilbert-8cf3380435b5>
