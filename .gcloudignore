@@ -9,4 +9,7 @@ train_notebooks
 .git
 .DS_Store
 static/images/demo.png
-model
+model/distil_toxic_model.pt
+model/toxic_model.pt
+model/pytorch_model.bin
+model/model.txt
