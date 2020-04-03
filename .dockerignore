@@ -6,3 +6,4 @@ model
 train_notebooks
 .git
 LICENSE
+.DS_Store
