@@ -2,7 +2,10 @@ Dockerfile
 README.md
 __pycache__
 venv
-model
+model/distil_toxic_model.pt
+model/toxic_model.pt
+model/pytorch_model.bin
+model/model.txt
 train_notebooks
 .git
 LICENSE
