@@ -95,7 +95,7 @@ model.load_state_dict(torch.load(
     path_to_model, map_location=torch.device('cpu')))
 
 
-def predict(model, tokenizer, text):
+def predict(text):
 
     model.eval()
 

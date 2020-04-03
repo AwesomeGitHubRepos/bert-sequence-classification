@@ -1,4 +1,4 @@
-from model import model, tokenizer, predict
+from model import predict
 from flask import request
 import flask
 import os
@@ -22,8 +22,7 @@ def index():
     if(request.args):
 
         # Passes contents of query string to the prediction function contained in model.py
-        x_input, prediction = predict(
-            model, tokenizer, request.args['text_in'])
+        x_input, prediction = predict(request.args['text_in'])
         print(prediction)
 
         # Indexes the returned dictionary for the sentiment probability
