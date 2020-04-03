@@ -9,20 +9,38 @@ import torch
 import os
 import re
 
-urls = [
-    "https://s3.amazonaws.com/models.huggingface.co/bert/distilbert-base-cased-pytorch_model.bin"
-]
+# urls = [
+#     "https://s3.amazonaws.com/models.huggingface.co/bert/distilbert-base-cased-pytorch_model.bin"
+# ]
+#
+# for url in urls:
+#     cached_path(url)
 
-for url in urls:
-    cached_path(url)
+def download_model(s3_url, model_name):
+    path = "./model/"
+    path_to_model = os.path.join(path, model_name)
+    if not os.path.exists(path_to_model):
+        print("Model weights not found, downloading from S3...")
+        print(f"URL:{s3_url}")
+        os.makedirs(os.path.join(path), exist_ok=True)
+        filename = Path(path_to_model)
+        r = requests.get(s3_url)
+        filename.write_bytes(r.content)
+
+    return path_to_model, path
+
 
 # BERT_MODEL = [(BertModel, BertTokenizer, 'bert-base-uncased')]
-DISTILBERT_MODEL = [(DistilBertModel, DistilBertTokenizer, 'distilbert-base-cased')]
+# DISTILBERT_MODEL = [(DistilBertModel, DistilBertTokenizer, 'distilbert-base-cased')]
+#
+# for model_class, tokenizer_class, pretrained_weights in DISTILBERT_MODEL:
 
-for model_class, tokenizer_class, pretrained_weights in DISTILBERT_MODEL:
+pretrained_weights = 'distilbert-base-cased'
 
-    tokenizer = tokenizer_class.from_pretrained(pretrained_weights)
-    bert_model = model_class.from_pretrained(pretrained_weights)
+path_to_model, path = download_model("https://s3.amazonaws.com/models.huggingface.co/bert/distilbert-base-cased-pytorch_model.bin", "pytorch_model.bin")
+
+tokenizer = DistilBertTokenizer.from_pretrained(path)
+bert_model = DistilBertModel.from_pretrained(path)
 
 labels_list = ["toxic", "severe_toxic", "obscene",
                "threat", "insult", "identity_hate"]
@@ -67,20 +85,6 @@ class linear_model(nn.Module):
 
         return logits
 
-
-def download_model(s3_url, model_name):
-    path = "./model/"
-    path_to_model = os.path.join(path, model_name)
-    if not os.path.exists(path_to_model):
-        print("Model weights not found, downloading from S3...")
-        os.makedirs(os.path.join(path), exist_ok=True)
-        filename = Path(path_to_model)
-        r = requests.get(s3_url)
-        filename.write_bytes(r.content)
-
-    return path_to_model
-
-
 if pretrained_weights == 'distilbert-base-cased':
     s3_url = 'https://toxic-model.s3.eu-west-2.amazonaws.com/distil_toxic_model.pt'
     model_name = 'distil_toxic_model.pt'
@@ -88,7 +92,7 @@ else:
     s3_url = 'https://toxic-model.s3.eu-west-2.amazonaws.com/toxic_model.pt'
     model_name = 'toxic_model.pt'
 
-path_to_model = download_model(s3_url, model_name)
+path_to_model, _ = download_model(s3_url, model_name)
 
 model = linear_model(bert_model, len(labels_list))
 model.load_state_dict(torch.load(
