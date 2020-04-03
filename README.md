@@ -1,5 +1,7 @@
 # BERT for Sequence Classification
 
+![Build and Deploy to Cloud Run](https://github.com/oliverproud/bert-sequence-classification/workflows/Build%20and%20Deploy%20to%20Cloud%20Run/badge.svg?branch=master)
+
 Try the demo at [toxic.oliverproud.com](https://toxic.oliverproud.com)
 
 # What is DistilBERT?
