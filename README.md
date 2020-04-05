@@ -1,6 +1,8 @@
 # BERT for Sequence Classification
 
 ![Build and Deploy to Cloud Run](https://github.com/oliverproud/bert-sequence-classification/workflows/Build%20and%20Deploy%20to%20Cloud%20Run/badge.svg?branch=master)
+[![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/oliverproud/bert-classification-flask?logo=docker&logoColor=FFF)](https://hub.docker.com/repository/docker/oliverproud/bert-classification-flask)
+[![Website](https://img.shields.io/website?down_message=offline&up_message=online&url=https%3A%2F%2Ftoxic.oliverproud.com)](https://toxic.oliverproud.com)
 
 Try the demo at [toxic.oliverproud.com](https://toxic.oliverproud.com)
 
