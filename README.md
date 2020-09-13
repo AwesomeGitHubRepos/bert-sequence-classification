@@ -95,6 +95,13 @@ model = linear_model(bert_model, len(labels_list))
 model.load_state_dict(torch.load(path_to_model, map_location=torch.device('cpu')))
 ```
 
+### Deploying to Google Cloud Run
+Please see this [quick start guide](https://cloud.google.com/run/docs/quickstarts/build-and-deploy#python) from Google on how to deploy to Google Cloud Run.
+
+If you follow just part one and create the project, then navigate to the Cloud Run console and find the button named `SET UP CONTINUOUS DEPLOYMENT` and from there you will be able to deploy directly from your GitHub repo using the Dockerfile.
+
+Alternatively, follow the entire quick start guide.
+
 # Making predictions
 
 You can test the model using the `predict` function in `model.py` or by using the provided Flask user interface or by heading to [toxic.oliverproud.com](https://toxic.oliverproud.com)
@@ -109,3 +116,4 @@ Check out my notebooks on how to fine-tune BERT [here](https://github.com/oliver
 
 - <https://github.com/huggingface/transformers>
 - <https://medium.com/huggingface/distilbert-8cf3380435b5>
+- <https://cloud.google.com/run/docs/quickstarts/build-and-deploy#python>
